@@ -23,7 +23,7 @@ contract IsletmeHaritasiTest {
     address private constant ISLETME = address(0x300);
     address private constant YETKISIZ = address(0x999);
 
-    bytes32 private constant NFC_1 = keccak256("relay-nfc-isletme-1");
+    bytes32 private constant KAYIT_1 = keccak256("relay-isletme-kaydi-1");
 
     Yetkilendirme private yetkilendirme;
     IsletmeHaritasi private harita;
@@ -51,14 +51,14 @@ contract IsletmeHaritasiTest {
         harita.isletmeOnayla(id);
 
         require(harita.aktifIsletmeSayisi() == 1);
-        (uint256 okunanId, address odemeAdresi, string memory ad,, int32 enlemE6, int32 boylamE6, bytes32 nfc) =
+        (uint256 okunanId, address odemeAdresi, string memory ad,, int32 enlemE6, int32 boylamE6, bytes32 kayitKimligi) =
             harita.aktifIsletme(0);
         require(okunanId == id);
         require(odemeAdresi == ISLETME);
         require(keccak256(bytes(ad)) == keccak256(bytes("Rlay Kahve")));
         require(enlemE6 == 41_008_900);
         require(boylamE6 == 28_978_500);
-        require(nfc == NFC_1);
+        require(kayitKimligi == KAYIT_1);
     }
 
     function testKonseyUyesiIsletmeOnaylayamaz() public {
@@ -71,14 +71,14 @@ contract IsletmeHaritasiTest {
     function testGecersizKoordinatReddedilir() public {
         vm.prank(ISLETME);
         vm.expectRevert(IsletmeHaritasi.GecersizKoordinat.selector);
-        harita.isletmeBasvurusuYap("Rlay Kahve", "Kafe", 90_000_001, 28_978_500, NFC_1);
+        harita.isletmeBasvurusuYap("Rlay Kahve", "Kafe", 90_000_001, 28_978_500, KAYIT_1);
     }
 
-    function testAyniNfcEtiketiIkiKezKaydedilemez() public {
+    function testAyniKayitKimligiIkiKezKullanilamaz() public {
         _basvuruYap();
         vm.prank(YETKISIZ);
-        vm.expectRevert(IsletmeHaritasi.NfcEtiketiZatenKayitli.selector);
-        harita.isletmeBasvurusuYap("Baska Kafe", "Kafe", 41_010_000, 28_980_000, NFC_1);
+        vm.expectRevert(IsletmeHaritasi.KayitKimligiZatenKullanilmis.selector);
+        harita.isletmeBasvurusuYap("Baska Kafe", "Kafe", 41_010_000, 28_980_000, KAYIT_1);
     }
 
     function testKonumDegisinceYenidenYoneticiOnayiGerekir() public {
@@ -140,7 +140,7 @@ contract IsletmeHaritasiTest {
 
     function _basvuruYap() private returns (uint256 id) {
         vm.prank(ISLETME);
-        id = harita.isletmeBasvurusuYap("Rlay Kahve", "Kafe", 41_008_900, 28_978_500, NFC_1);
+        id = harita.isletmeBasvurusuYap("Rlay Kahve", "Kafe", 41_008_900, 28_978_500, KAYIT_1);
     }
 
     function _yoneticiOyuVer(address uye) private {

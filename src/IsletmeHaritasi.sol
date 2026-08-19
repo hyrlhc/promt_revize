@@ -7,7 +7,7 @@ interface IYetkilendirme {
     function yonetimDurumu() external view returns (address yoneticiAdresi, address[6] memory konseyAdresleri);
 }
 
-/// @title Yönetici onaylı, NFC kimlikli topluluk işletmeleri haritası
+/// @title Yönetici onaylı topluluk işletmeleri haritası
 /// @notice İşletmeler konum ve ödeme adresleriyle başvurur; yalnızca güncel
 /// yönetici onayından sonra mobil uygulamadaki aktif işletme listesine girer.
 contract IsletmeHaritasi {
@@ -28,15 +28,15 @@ contract IsletmeHaritasi {
         // Örnek: 41.008900 enlemi zincirde 41008900 olarak tutulur.
         int32 enlemE6;
         int32 boylamE6;
-        // Ham NFC seri numarası yerine uygulamanın ürettiği tekil etiket özeti.
-        bytes32 nfcEtiketKimligi;
+        // Uygulamanın her başvuru için ürettiği tekil ve opak kayıt özeti.
+        bytes32 kayitKimligi;
         bool onayli;
         bool aktif;
     }
 
     uint256 private _sonrakiIsletmeId = 1;
     mapping(uint256 id => Isletme isletme) private _isletmeler;
-    mapping(bytes32 nfcEtiketKimligi => uint256 id) private _nfcEtiketindenIsletmeId;
+    mapping(bytes32 kayitKimligi => uint256 id) private _kayitKimligindenIsletmeId;
     uint256[] private _aktifIsletmeIdleri;
     mapping(uint256 id => uint256 birFazlaIndeks) private _aktifIsletmeIndeksi;
 
@@ -45,8 +45,8 @@ contract IsletmeHaritasi {
     error GecersizIsletmeAdi();
     error GecersizKategori();
     error GecersizKoordinat();
-    error GecersizNfcEtiketi();
-    error NfcEtiketiZatenKayitli();
+    error GecersizKayitKimligi();
+    error KayitKimligiZatenKullanilmis();
     error IsletmeBulunamadi();
     error IsletmeZatenOnayli();
     error IsletmeOnayliDegil();
@@ -57,7 +57,7 @@ contract IsletmeHaritasi {
     event IsletmeBasvurusuOlusturuldu(
         uint256 indexed id,
         address indexed odemeAdresi,
-        bytes32 indexed nfcEtiketKimligi,
+        bytes32 indexed kayitKimligi,
         string ad,
         int32 enlemE6,
         int32 boylamE6
@@ -78,20 +78,19 @@ contract IsletmeHaritasi {
     }
 
     /// @notice İşletme kendi ödeme cüzdanıyla başvuru oluşturur.
-    /// @dev NFC etiketi GPS koordinatı üretmez; yalnızca bu zincir kaydının
-    /// kimliğini taşır. Koordinatlar işletme tarafından girilir ve yönetici
-    /// onaylamadan aktif haritada gösterilmez.
+    /// @dev Kayıt kimliği başvuruyu benzersizleştirir. Koordinatlar işletme
+    /// tarafından girilir ve yönetici onaylamadan aktif haritada gösterilmez.
     function isletmeBasvurusuYap(
         string calldata ad,
         string calldata kategori,
         int32 enlemE6,
         int32 boylamE6,
-        bytes32 nfcEtiketKimligi
+        bytes32 kayitKimligi
     ) external returns (uint256 id) {
         _metinleriDogrula(ad, kategori);
         _koordinatiDogrula(enlemE6, boylamE6);
-        if (nfcEtiketKimligi == bytes32(0)) revert GecersizNfcEtiketi();
-        if (_nfcEtiketindenIsletmeId[nfcEtiketKimligi] != 0) revert NfcEtiketiZatenKayitli();
+        if (kayitKimligi == bytes32(0)) revert GecersizKayitKimligi();
+        if (_kayitKimligindenIsletmeId[kayitKimligi] != 0) revert KayitKimligiZatenKullanilmis();
 
         id = _sonrakiIsletmeId++;
         _isletmeler[id] = Isletme({
@@ -100,13 +99,13 @@ contract IsletmeHaritasi {
             kategori: kategori,
             enlemE6: enlemE6,
             boylamE6: boylamE6,
-            nfcEtiketKimligi: nfcEtiketKimligi,
+            kayitKimligi: kayitKimligi,
             onayli: false,
             aktif: false
         });
-        _nfcEtiketindenIsletmeId[nfcEtiketKimligi] = id;
+        _kayitKimligindenIsletmeId[kayitKimligi] = id;
 
-        emit IsletmeBasvurusuOlusturuldu(id, msg.sender, nfcEtiketKimligi, ad, enlemE6, boylamE6);
+        emit IsletmeBasvurusuOlusturuldu(id, msg.sender, kayitKimligi, ad, enlemE6, boylamE6);
     }
 
     /// @notice Güncel yönetici işletmeyi onaylar ve aktif haritaya ekler.
@@ -171,7 +170,7 @@ contract IsletmeHaritasi {
             string memory kategori,
             int32 enlemE6,
             int32 boylamE6,
-            bytes32 nfcEtiketKimligi
+            bytes32 kayitKimligi
         )
     {
         if (indeks >= _aktifIsletmeIdleri.length) revert GecersizAktifIsletmeIndeksi();
@@ -184,7 +183,7 @@ contract IsletmeHaritasi {
             isletme.kategori,
             isletme.enlemE6,
             isletme.boylamE6,
-            isletme.nfcEtiketKimligi
+            isletme.kayitKimligi
         );
     }
 
@@ -192,9 +191,9 @@ contract IsletmeHaritasi {
         return _isletmeyiGetir(id);
     }
 
-    /// @notice NFC taramasının yalnızca yönetici onaylı ve aktif işletmeyi çözmesini sağlar.
-    function nfcIleIsletmeBul(bytes32 nfcEtiketKimligi) external view returns (uint256 id, Isletme memory isletme) {
-        id = _nfcEtiketindenIsletmeId[nfcEtiketKimligi];
+    /// @notice Opak kayıt kimliğinden yalnızca onaylı ve aktif işletmeyi bulur.
+    function kayitKimligiIleIsletmeBul(bytes32 kayitKimligi) external view returns (uint256 id, Isletme memory isletme) {
+        id = _kayitKimligindenIsletmeId[kayitKimligi];
         isletme = _isletmeyiGetir(id);
         if (!isletme.onayli || !isletme.aktif) revert IsletmeOnayliDegil();
     }

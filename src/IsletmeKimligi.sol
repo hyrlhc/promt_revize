@@ -9,7 +9,7 @@ interface IIsletmeHaritasiKimlik {
         string kategori;
         int32 enlemE6;
         int32 boylamE6;
-        bytes32 eskiNfcEtiketKimligi;
+        bytes32 kayitKimligi;
         bool onayli;
         bool aktif;
     }
