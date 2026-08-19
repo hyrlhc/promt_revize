@@ -1,0 +1,8 @@
+{
+  "network": "Base Sepolia",
+  "chainId": 84532,
+  "contractName": "SimplePoll",
+  "contractAddress": "0x99fD4E0e5529CD7816f232D742018029F20F28E9",
+  "deployer": "0x984D781c0BE730e2398b99431D6Ebe851421232E",
+  "transactionHash": "0xf9ccdad12c223551e6da0525ce39198d814fd30c8d8c7a1c68eb40d1c0466ecc"
+}

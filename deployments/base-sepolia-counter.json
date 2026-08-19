@@ -1,0 +1,8 @@
+{
+  "network": "Base Sepolia",
+  "chainId": 84532,
+  "contractName": "Counter",
+  "contractAddress": "0x9339f85b5bBAc0fa1b9A011Bf4C8e279d5Db2A31",
+  "deployer": "0x984D781c0BE730e2398b99431D6Ebe851421232E",
+  "transactionHash": "0xbefe72f5432589cbf6ea352cb73a5cebf28fd3a31804a98611d4a60287e355a3"
+}

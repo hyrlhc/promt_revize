@@ -1,0 +1,13 @@
+{
+  "name": "relay-payment-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test server.test.mjs"
+  },
+  "dependencies": {
+    "ethers": "^6.17.0"
+  }
+}

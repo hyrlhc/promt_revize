@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Yerel Ethereum ağındaki yöneticiyi, konseyi ve topluluk üyelerini gösteren salt-okunur yönetim ekranı."
+    />
+    <title>Karanlık Konsey</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="ust-cubuk">
+      <div>
+        <p class="ust-baslik">Yerel Web3 yönetimi</p>
+        <h1>Karanlık Konsey</h1>
+      </div>
+      <span class="ag-rozeti"><i aria-hidden="true"></i> Anvil · Salt okunur</span>
+    </header>
+
+    <main>
+      <section class="durum-paneli" aria-labelledby="salon-basligi">
+        <div>
+          <h2 id="salon-basligi">Yuvarlak Masa</h2>
+          <p id="durum" class="durum" aria-live="polite">{{DURUM}}</p>
+        </div>
+        <button id="yenile" type="button">Zincirden Yenile</button>
+      </section>
+
+      <section class="sahne" aria-label="Ortada yönetici ve çevresinde altı konsey üyesi">
+        <div class="sahne-karartma" aria-hidden="true"></div>
+
+        <article class="adres-etiketi yonetici-etiketi">
+          <span class="rutbe">◆ Yönetici</span>
+          <a id="yonetici-adresi" class="adres">{{YONETICI}}</a>
+        </article>
+
+        <article class="adres-etiketi konsey-1">
+          <span class="rutbe">Konsey 1</span>
+          <a class="adres" data-konsey="0">{{KONSEY_1}}</a>
+        </article>
+        <article class="adres-etiketi konsey-2">
+          <span class="rutbe">Konsey 2</span>
+          <a class="adres" data-konsey="1">{{KONSEY_2}}</a>
+        </article>
+        <article class="adres-etiketi konsey-3">
+          <span class="rutbe">Konsey 3</span>
+          <a class="adres" data-konsey="2">{{KONSEY_3}}</a>
+        </article>
+        <article class="adres-etiketi konsey-4">
+          <span class="rutbe">Konsey 4</span>
+          <a class="adres" data-konsey="3">{{KONSEY_4}}</a>
+        </article>
+        <article class="adres-etiketi konsey-5">
+          <span class="rutbe">Konsey 5</span>
+          <a class="adres" data-konsey="4">{{KONSEY_5}}</a>
+        </article>
+        <article class="adres-etiketi konsey-6">
+          <span class="rutbe">Konsey 6</span>
+          <a class="adres" data-konsey="5">{{KONSEY_6}}</a>
+        </article>
+      </section>
+
+      <section class="topluluk" aria-labelledby="topluluk-basligi">
+        <div class="bolum-basligi">
+          <div>
+            <p class="ust-baslik">Zincirde kayıtlı cüzdanlar</p>
+            <h2 id="topluluk-basligi">Topluluk Üyeleri</h2>
+          </div>
+          <span id="uye-sayisi" class="uye-sayisi">{{UYE_SAYISI}} üye</span>
+        </div>
+
+        <div id="topluluk-listesi" class="topluluk-listesi">{{TOPLULUK_KARTLARI}}</div>
+      </section>
+
+      <p class="son-guncelleme">Son güncelleme: <time id="son-guncelleme">{{GUNCELLEME}}</time></p>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

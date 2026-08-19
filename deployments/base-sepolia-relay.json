@@ -1,0 +1,49 @@
+{
+  "network": "Base Sepolia",
+  "chainId": 84532,
+  "deployer": "0x984D781c0BE730e2398b99431D6Ebe851421232E",
+  "manager": "0x1E9aCE552E9c9c3bB5C3c8D3DA452Be6c5c93F9e",
+  "council": [
+    "0x1B133EF5668984A684D5e2cE90078D7266A2a126",
+    "0x39736eE1df567F67C9BB61b62009854D8Ca4b3b1",
+    "0xE558BD53BD61985Adaf3C796394d579540d2A740",
+    "0x5EBC3422C883aC5a33cdBC26f555Bd23f988d0EA",
+    "0x5C540EAd230Fa357cf4c789a8d703B4BeAb46833",
+    "0x742889fA0d5052e6b5C2dAc33afa08ca009875f1"
+  ],
+  "contracts": {
+    "Yetkilendirme": {
+      "address": "0xF70b6776Cc940253848BA1e94634586b9BcC2f9d",
+      "transactionHash": "0xd862f4d93a865411032baf47e1764a044407521dfd7acf0a2440c01d0235bf41"
+    },
+    "RlayToken": {
+      "address": "0x3Dd4334992fA660220e6C13e1BAdcd01b1492185",
+      "transactionHash": "0x13bd740dcc78a1acf82149b60d3c0b35da00a2a0f181332eb9d4bb954bdc518c"
+    },
+    "IsletmeHaritasi": {
+      "address": "0xea004DbD58F988da2752388cf80D1e0dDB5777ed",
+      "transactionHash": "0x648f55d135e526d6066e24bb7050455640112740afee2183dc82788facaead20"
+    },
+    "IsletmeKimligi": {
+      "address": "0x980D6c0949c376523940AfDfE0B6D9Fc3b34141F",
+      "transactionHash": "0x907f904516d34f88c9a4525811de0093eb2b87744c34d59501e98cfc605d7f7b"
+    }
+  },
+  "merchantApplication": {
+    "id": 1,
+    "name": "Relay Dondurma",
+    "category": "Dondurma",
+    "paymentAddress": "0x984D781c0BE730e2398b99431D6Ebe851421232E",
+    "latitudeE6": 37952278,
+    "longitudeE6": 27430561,
+    "recordId": "0x8af6b4db68f61c52e954eb272bb550de09b883de4c0af3731907d5d461a7da7d",
+    "approved": true,
+    "active": true,
+    "transactionHash": "0x37ab2316bf7c36bb2fe00ac24f99e9e96dfa1fa1f33aa94d8ca439853b6e551d",
+    "verifiedMerchantNft": {
+      "tokenId": 1,
+      "contractAddress": "0x980D6c0949c376523940AfDfE0B6D9Fc3b34141F",
+      "claimTransactionHash": "0x3cd046b8bf3cdeffe5f8cdab6950292a522fb08fad3e4b718422ec387f35b073"
+    }
+  }
+}

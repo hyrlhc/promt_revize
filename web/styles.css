@@ -1,0 +1,441 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #020203;
+  color: #f7f7fb;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 8%, rgb(104 44 214 / 13%), transparent 24rem),
+    radial-gradient(circle at 86% 42%, rgb(11 207 134 / 8%), transparent 26rem),
+    #020203;
+}
+
+.ust-cubuk,
+main {
+  width: min(1400px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.ust-cubuk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 28px 20px;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  margin-top: 4px;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  letter-spacing: -0.02em;
+}
+
+.ust-baslik,
+.rutbe,
+.son-guncelleme {
+  color: #a39eaf;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ust-baslik {
+  color: #a878ff;
+}
+
+.ag-rozeti,
+.uye-sayisi {
+  padding: 9px 13px;
+  border: 1px solid rgb(56 230 164 / 45%);
+  border-radius: 999px;
+  color: #8ff0c4;
+  background: rgb(9 89 59 / 18%);
+  font-size: 0.8rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.ag-rozeti i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #38e6a4;
+  box-shadow: 0 0 14px #38e6a4;
+}
+
+main {
+  padding-block: 24px 50px;
+}
+
+.durum-paneli,
+.bolum-basligi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.durum-paneli {
+  margin-bottom: 20px;
+}
+
+.durum {
+  margin-top: 7px;
+  color: #aca9b6;
+}
+
+button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid #8e5dea;
+  border-radius: 10px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #4b258c, #241239);
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #b994ff;
+  background: linear-gradient(135deg, #6130b5, #31184d);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #38e6a4;
+  outline-offset: 3px;
+}
+
+.sahne {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid rgb(168 120 255 / 24%);
+  border-radius: 24px;
+  background: #050506 url("assets/konsey-salonu.png") center / cover no-repeat;
+  box-shadow:
+    0 30px 100px rgb(0 0 0 / 72%),
+    inset 0 0 90px rgb(0 0 0 / 50%);
+}
+
+.sahne-karartma {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 54%, rgb(0 0 0 / 35%) 100%),
+    radial-gradient(circle at 50% 47%, transparent 18%, rgb(0 0 0 / 12%) 72%);
+}
+
+.sahne-karartma::before,
+.sahne-karartma::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+/* Kısa ve düzensiz kararmalar arızalı tavan lambası hissi verir. */
+.sahne-karartma::before {
+  z-index: 1;
+  background: #000000;
+  opacity: 0;
+  animation: lamba-kararmasi 6.8s steps(1, end) infinite;
+}
+
+/* Işık geri geldiğinde masanın merkezinde çok kısa bir parlama oluşur. */
+.sahne-karartma::after {
+  background: radial-gradient(ellipse at 50% 33%, rgb(255 255 244 / 18%) 0%, transparent 38%);
+  mix-blend-mode: screen;
+  opacity: 0.42;
+  animation: lamba-parlamasi 6.8s steps(1, end) infinite;
+}
+
+@keyframes lamba-kararmasi {
+  0%,
+  7%,
+  9%,
+  11%,
+  38%,
+  41%,
+  43%,
+  72%,
+  74%,
+  100% {
+    opacity: 0;
+  }
+
+  8%,
+  10%,
+  40%,
+  73% {
+    opacity: 0.5;
+  }
+
+  8.5%,
+  40.5% {
+    opacity: 0.78;
+  }
+}
+
+@keyframes lamba-parlamasi {
+  0%,
+  7%,
+  9%,
+  11%,
+  38%,
+  41%,
+  43%,
+  72%,
+  74%,
+  100% {
+    opacity: 0.42;
+  }
+
+  8%,
+  10%,
+  40%,
+  73% {
+    opacity: 0.04;
+  }
+
+  8.5%,
+  40.5% {
+    opacity: 0;
+  }
+}
+
+.adres-etiketi {
+  position: absolute;
+  z-index: 1;
+  width: min(18%, 240px);
+  padding: 9px 10px;
+  transform: translateX(-50%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  border-radius: 10px;
+  background: rgb(2 2 5 / 76%);
+  box-shadow: 0 10px 28px rgb(0 0 0 / 48%);
+  backdrop-filter: blur(8px);
+  text-align: center;
+}
+
+.yonetici-etiketi {
+  top: 38%;
+  left: 50%;
+  border-color: rgb(168 120 255 / 65%);
+  background: rgb(32 14 53 / 82%);
+  box-shadow: 0 0 32px rgb(121 63 224 / 24%);
+}
+
+.yonetici-etiketi .rutbe {
+  color: #d4b9ff;
+}
+
+.konsey-1 {
+  top: 60%;
+  left: 8%;
+}
+
+.konsey-2 {
+  top: 56%;
+  left: 25%;
+}
+
+.konsey-3 {
+  top: 54%;
+  left: 38%;
+}
+
+.konsey-4 {
+  top: 54%;
+  left: 63%;
+}
+
+.konsey-5 {
+  top: 56%;
+  left: 77%;
+}
+
+.konsey-6 {
+  top: 60%;
+  left: 92%;
+}
+
+.adres {
+  display: block;
+  margin-top: 5px;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: clamp(0.58rem, 0.8vw, 0.74rem);
+  line-height: 1.4;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adres:hover {
+  color: #76f0bd;
+}
+
+.topluluk {
+  margin-top: 34px;
+  padding: 26px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 20px;
+  background: rgb(10 10 14 / 88%);
+}
+
+.topluluk-listesi {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.uye-karti {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid rgb(56 230 164 / 18%);
+  border-radius: 13px;
+  background: linear-gradient(145deg, rgb(15 21 21 / 95%), rgb(8 9 12 / 95%));
+}
+
+.uye-karti .adres {
+  overflow-wrap: anywhere;
+  color: #aef6d8;
+  white-space: normal;
+}
+
+.ekleyen {
+  margin-top: 14px;
+  color: #8c8798;
+  font-size: 0.72rem;
+}
+
+.ekleyen a,
+.ekleyen-adres {
+  display: block;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+  color: #b894ff;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  text-decoration: none;
+}
+
+.bos-liste {
+  grid-column: 1 / -1;
+  padding: 28px;
+  border: 1px dashed rgb(255 255 255 / 14%);
+  border-radius: 12px;
+  color: #85818e;
+  text-align: center;
+}
+
+.son-guncelleme {
+  margin-top: 18px;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .adres-etiketi {
+    width: 22%;
+    padding: 6px;
+  }
+
+  .topluluk-listesi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ust-cubuk,
+  main {
+    width: min(100% - 24px, 560px);
+  }
+
+  .ust-cubuk,
+  .durum-paneli,
+  .bolum-basligi {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sahne {
+    aspect-ratio: 4 / 5;
+    background-position: center top;
+  }
+
+  .adres-etiketi {
+    width: 29%;
+  }
+
+  .yonetici-etiketi {
+    top: 34%;
+  }
+
+  .konsey-1,
+  .konsey-6 {
+    top: 64%;
+  }
+
+  .konsey-2,
+  .konsey-5 {
+    top: 58%;
+  }
+
+  .konsey-3,
+  .konsey-4 {
+    top: 52%;
+  }
+
+  .topluluk-listesi {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+
+  .sahne-karartma::before,
+  .sahne-karartma::after {
+    animation: none !important;
+  }
+}
